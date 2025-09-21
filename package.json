@@ -1,0 +1,13 @@
+{
+    "name": "lang-autocomplete",
+    "private": true,
+    "scripts": {
+        "dev": "DATABASE_URL=postgres://user:pass@localhost:5432/main bun --watch run main.ts"
+    },
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    }
+}

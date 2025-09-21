@@ -1,0 +1,25 @@
+services:
+    web:
+        build: .
+        environment:
+            DATABASE_URL: postgres://user:pass@db:5432/main
+            API_URL: ${API_URL}
+        depends_on:
+            db:
+                condition: service_healthy
+    db:
+        image: postgres:18rc1-trixie
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: pass
+            POSTGRES_DB: main
+        volumes:
+            - db:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U user"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+volumes:
+    db:
